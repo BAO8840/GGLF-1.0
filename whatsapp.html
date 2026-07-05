@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO — WhatsApp Simulator</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> BAO — LIVE SYSTEM</div>
+    <div class="nav-links">
+      <a href="/dashboard.html">Trader dashboard</a>
+      <a href="/ussd.html">USSD</a>
+      <a href="/whatsapp.html" class="active">WhatsApp</a>
+      <a href="/zecc.html">ZECC booking</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap page-head">
+  <div class="eyebrow">Smartphone channel</div>
+  <h1>Message BAO as a farmer with a smartphone.</h1>
+  <p>This posts to <code class="mono">POST /webhook/whatsapp</code>, shaped like a real WhatsApp Cloud API webhook, and runs through the exact same <code class="mono">botEngine.js</code> as the USSD channel — reply with a number, same as the phone menu.</p>
+  <div style="margin-top:14px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+    <span id="conn-pill" class="live-pill off"><span class="dot"></span> connecting…</span>
+    <label style="margin:0; display:flex; align-items:center; gap:8px;">
+      <span style="color:var(--ash); font-size:12.5px;">Simulated number:</span>
+      <input id="phone-input" value="+2348099998888" style="width:170px;">
+    </label>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="grid-2">
+    <div class="phone-shell">
+      <div class="phone">
+        <div class="wa-screen" id="wa-screen"></div>
+        <div class="wa-inputrow">
+          <input id="wa-input" placeholder="Type a number and hit send…">
+          <button class="btn small" id="wa-send">Send</button>
+        </div>
+      </div>
+      <div class="phone-caption">acts like the farmer's phone + the webhook receiver in one</div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>Live price ticker</h3>
+        <p style="color:var(--ash); margin:0 0 4px; font-size:13px;">Same SSE stream as the USSD page and the dashboard — one source of truth, three surfaces.</p>
+        <div class="price-ticker" id="ticker"></div>
+      </div>
+      <div class="card">
+        <h3>Why this proves "one system, two doors"</h3>
+        <p style="color:var(--ash); font-size:13.5px; margin:0; line-height:1.8;">Open this page and the USSD page side by side. Update a price on the dashboard — both tickers move together, instantly, because they're reading the same database through the same live stream. The menu logic itself lives in one file, <code class="mono">server/botEngine.js</code>, that neither channel owns exclusively.</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="wrap">WhatsApp adapter · POST /webhook/whatsapp · shares server/botEngine.js with the USSD adapter</footer>
+
+<script src="/js/toast.js"></script>
+<script src="/js/ticker.js"></script>
+<script src="/js/whatsapp.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO — USSD Simulator</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> BAO — LIVE SYSTEM</div>
+    <div class="nav-links">
+      <a href="/dashboard.html">Trader dashboard</a>
+      <a href="/ussd.html" class="active">USSD</a>
+      <a href="/whatsapp.html">WhatsApp</a>
+      <a href="/zecc.html">ZECC booking</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap page-head">
+  <div class="eyebrow">Feature phone channel</div>
+  <h1>Dial in as a farmer on a feature phone.</h1>
+  <p>This posts to <code class="mono">POST /ussd</code> with the same field names a telco gateway sends (sessionId, phoneNumber, text) and gets back a real response from the shared bot engine — not a mock.</p>
+  <div style="margin-top:14px; display:flex; align-items:center; gap:14px; flex-wrap:wrap;">
+    <span id="conn-pill" class="live-pill off"><span class="dot"></span> connecting…</span>
+    <label style="margin:0; display:flex; align-items:center; gap:8px;">
+      <span style="color:var(--ash); font-size:12.5px;">Simulated number:</span>
+      <input id="phone-input" value="+2348011112222" style="width:170px;">
+    </label>
+  </div>
+</div>
+
+<main class="wrap">
+  <div class="grid-2">
+    <div class="phone-shell">
+      <div class="phone">
+        <div class="ussd-screen">
+          <div class="screen-title"><span>BAO*140#</span><span>USSD</span></div>
+          <div class="screen-body" id="ph-body">Dial to begin<span class="cursor"></span></div>
+        </div>
+        <div class="keypad">
+          <button class="key" data-k="1">1</button>
+          <button class="key" data-k="2">2</button>
+          <button class="key" data-k="3">3</button>
+          <button class="key" data-k="4">4</button>
+          <button class="key" data-k="5">5</button>
+          <button class="key" data-k="6">6</button>
+          <button class="key" data-k="7">7</button>
+          <button class="key" data-k="8">8</button>
+          <button class="key" data-k="9">9</button>
+          <button class="key wide" data-k="clear">Clear</button>
+          <button class="key" data-k="0">0</button>
+          <button class="key wide" data-k="send">Send</button>
+        </div>
+      </div>
+      <div class="phone-caption" id="ph-caption">dial *140# to start a session</div>
+    </div>
+
+    <div>
+      <div class="card">
+        <h3>Live price ticker</h3>
+        <p style="color:var(--ash); margin:0 0 4px; font-size:13px;">Pushed over the same SSE stream the dashboard uses — change a price on the dashboard in another tab and watch it update here with no refresh.</p>
+        <div class="price-ticker" id="ticker"></div>
+      </div>
+      <div class="card">
+        <h3>What's happening under the hood</h3>
+        <ol style="color:var(--ash); font-size:13.5px; padding-left:18px; margin:0; line-height:1.9;">
+          <li>Each keypress buffers a digit; <strong>Send</strong> submits it as the next USSD input.</li>
+          <li>The server keeps your menu position keyed by <code class="mono">sessionId</code> — same as a real gateway would.</li>
+          <li>Prices, buyers and bookings all come straight from <code class="mono">server/db.js</code>, the same store the dashboard edits.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="wrap">USSD adapter · POST /ussd · shares server/botEngine.js with the WhatsApp adapter</footer>
+
+<script src="/js/toast.js"></script>
+<script src="/js/ticker.js"></script>
+<script src="/js/ussd.js"></script>
+</body>
+</html>

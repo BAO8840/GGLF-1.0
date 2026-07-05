@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO — ZECC Booking</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> BAO — LIVE SYSTEM</div>
+    <div class="nav-links">
+      <a href="/dashboard.html">Trader dashboard</a>
+      <a href="/ussd.html">USSD</a>
+      <a href="/whatsapp.html">WhatsApp</a>
+      <a href="/zecc.html" class="active">ZECC booking</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap page-head">
+  <div class="eyebrow">Physical infrastructure — booking only</div>
+  <h1>Reserve space in a Zero-Energy Cool Chamber.</h1>
+  <p>ZECC is hardware, not software — this page only handles what a website reasonably can: showing free capacity nearby and reserving a slot. The same booking is also reachable from the USSD and WhatsApp menus (option 4).</p>
+</div>
+
+<main class="wrap">
+  <div class="grid-2">
+    <div class="card">
+      <h3>Chambers near you</h3>
+      <table id="chamber-table">
+        <thead><tr><th>Chamber</th><th>Zone</th><th>Free</th></tr></thead>
+        <tbody id="chamber-body"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Book a slot</h3>
+      <form id="book-form">
+        <div class="field">
+          <label for="f-chamber">Chamber</label>
+          <select id="f-chamber" required></select>
+        </div>
+        <div class="field">
+          <label for="f-name">Your name</label>
+          <input id="f-name" placeholder="e.g. Sunday Makinde" required>
+        </div>
+        <div class="field">
+          <label for="f-phone">Phone number</label>
+          <input id="f-phone" placeholder="+234…" required>
+        </div>
+        <div class="field">
+          <label for="f-kg">Kilograms to store</label>
+          <input id="f-kg" type="number" min="1" required>
+        </div>
+        <div class="field">
+          <label for="f-days">Days</label>
+          <input id="f-days" type="number" min="1" value="3" required>
+        </div>
+        <button class="btn" type="submit">Book chamber</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>Recent bookings</h3>
+    <table id="bookings-table">
+      <thead><tr><th>Chamber</th><th>Farmer</th><th>Kg</th><th>Days</th><th>Status</th></tr></thead>
+      <tbody id="bookings-body"></tbody>
+    </table>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<footer class="wrap">ZECC booking · POST /api/zecc/book · updates capacity live for USSD + WhatsApp too</footer>
+
+<script src="/js/toast.js"></script>
+<script src="/js/zecc.js"></script>
+</body>
+</html>

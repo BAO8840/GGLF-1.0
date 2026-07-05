@@ -1,0 +1,13 @@
+{
+  "name": "bao-fullstack",
+  "version": "1.0.0",
+  "description": "BAO — hybrid USSD/WhatsApp market coordination system with real-time price sync and ZECC booking.",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "license": "MIT"
+}

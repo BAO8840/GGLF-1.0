@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO — Trader Dashboard</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> BAO — LIVE SYSTEM</div>
+    <div class="nav-links">
+      <a href="/dashboard.html" class="active">Trader dashboard</a>
+      <a href="/ussd.html">USSD</a>
+      <a href="/whatsapp.html">WhatsApp</a>
+      <a href="/zecc.html">ZECC booking</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap page-head">
+  <div class="eyebrow">Trader / admin</div>
+  <h1>Set today's prices — every farmer sees it instantly.</h1>
+  <p>Editing a price here pushes a live update to every open USSD and WhatsApp session over Server-Sent Events. No refresh needed on their end.</p>
+  <div style="margin-top:14px;"><span id="conn-pill" class="live-pill off"><span class="dot"></span> connecting…</span></div>
+</div>
+
+<main class="wrap">
+  <div class="card">
+    <h3>Today's prices</h3>
+    <table id="price-table">
+      <thead><tr><th>Crop</th><th>Zone</th><th>Reference market</th><th>Farmer price</th><th>Gap</th><th>Updated</th><th></th></tr></thead>
+      <tbody id="price-body"></tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <h3>Harvest listings <span class="tag" style="margin-left:8px;">from farmers</span></h3>
+      <table id="listings-table">
+        <thead><tr><th>Farmer</th><th>Crop</th><th>Kg</th><th>Status</th><th>When</th></tr></thead>
+        <tbody id="listings-body"></tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>Message log <span class="tag gold" style="margin-left:8px;">USSD + WhatsApp</span></h3>
+      <table id="log-table">
+        <thead><tr><th>Channel</th><th>Phone</th><th>Dir</th><th>Text</th></tr></thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+<div id="toast" class="toast"></div>
+
+<footer class="wrap">BAO trader dashboard · reads/writes the same SQLite store the bots use</footer>
+
+<script src="/js/toast.js"></script>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

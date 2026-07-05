@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BAO — Live System</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-mark"><span class="dot"></span> BAO — LIVE SYSTEM</div>
+    <div class="nav-links">
+      <a href="/dashboard.html">Trader dashboard</a>
+      <a href="/ussd.html">USSD</a>
+      <a href="/whatsapp.html">WhatsApp</a>
+      <a href="/zecc.html">ZECC booking</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap page-head">
+  <div class="eyebrow">Full-stack build — running</div>
+  <h1>One backend, two doors in for the farmer.</h1>
+  <p>This is the working version of BAO's inclusivity system: a single Node server holds live prices, buyers and bookings in SQLite, and pushes updates out over Server-Sent Events the instant a trader changes a number. A USSD adapter and a WhatsApp adapter both sit on top of the exact same conversation engine, so a farmer gets the same prices and the same buyers no matter which door they walk through.</p>
+</div>
+
+<main class="wrap">
+  <div class="grid-2">
+    <a class="card" href="/dashboard.html" style="text-decoration:none; display:block;">
+      <span class="tag gold">Trader / Admin</span>
+      <h3 style="margin-top:14px;">Trader dashboard</h3>
+      <p style="color:var(--ash); margin:0;">Update today's prices, watch harvest listings come in, and see every message crossing the USSD and WhatsApp channels in one log. Change a price here — watch it update live everywhere else.</p>
+    </a>
+    <a class="card" href="/ussd.html" style="text-decoration:none; display:block;">
+      <span class="tag">Feature phone</span>
+      <h3 style="margin-top:14px;">USSD simulator</h3>
+      <p style="color:var(--ash); margin:0;">A dial-pad session against the real backend, following the same request shape a telco USSD gateway would send: sessionId, phoneNumber, accumulated input.</p>
+    </a>
+  </div>
+  <div class="grid-2" style="margin-top:20px;">
+    <a class="card" href="/whatsapp.html" style="text-decoration:none; display:block;">
+      <span class="tag green">Smartphone</span>
+      <h3 style="margin-top:14px;">WhatsApp simulator</h3>
+      <p style="color:var(--ash); margin:0;">A chat window that posts to a webhook shaped like the real WhatsApp Cloud API, hitting the same menu engine as USSD — proof the two channels are genuinely one system.</p>
+    </a>
+    <a class="card" href="/zecc.html" style="text-decoration:none; display:block;">
+      <span class="tag red">Physical</span>
+      <h3 style="margin-top:14px;">ZECC booking</h3>
+      <p style="color:var(--ash); margin:0;">The one piece of physical infrastructure in the pitch, reduced to what a website can actually do for it: check free capacity nearby and reserve a slot.</p>
+    </a>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <h3>How the parts fit together</h3>
+    <pre class="mono" style="color:var(--ash); font-size:12.5px; line-height:1.7; overflow-x:auto; margin:0;">
+farmer (USSD)  ──▶  POST /ussd              ──┐
+farmer (WhatsApp) ─▶ POST /webhook/whatsapp ──┼──▶  botEngine.js (shared state machine)
+trader (web)   ──▶  PATCH /api/prices/:id   ──┘            │
+                                                             ▼
+                                                     SQLite (server/db.js)
+                                                             │
+                                              GET /api/stream (Server-Sent Events)
+                                                             │
+                                          ┌──────────────────┼──────────────────┐
+                                          ▼                  ▼                  ▼
+                                   dashboard.html      ussd.html live      whatsapp.html live
+                                                        price ticker        price ticker
+    </pre>
+  </div>
+</main>
+
+<footer class="wrap">
+  BAO — Basic Agribusiness Organization · full-stack demo · run with <code>npm start</code>
+</footer>
+
+</body>
+</html>
